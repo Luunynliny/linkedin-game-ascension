@@ -1,0 +1,19 @@
+{
+  "lint": {
+    "rules": {
+      "include": ["recommended"]
+    }
+  },
+  "tasks": {
+    "fmt": "deno fmt",
+    "lint": "deno lint",
+    "fmt:check": "deno fmt --check",
+
+    "quality": "deno task fmt && deno task lint && deno task fmt:check",
+
+    "test": "deno test --coverage=coverage",
+    "coverage:check": "deno run -A check_coverage.ts",
+
+    "verify": "deno task quality && deno task test && deno task coverage:check"
+  }
+}
