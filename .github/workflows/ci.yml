@@ -1,0 +1,47 @@
+name: Deno CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deno-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: stable
+
+      - name: Check formatting
+        run: deno fmt --check
+
+      - name: Lint code
+        run: deno lint
+
+      - name: Run tests with coverage
+        run: |
+          deno test --coverage=coverage
+          deno coverage coverage --lcov > coverage.lcov
+
+      - name: Check coverage threshold
+        run: |
+          threshold=80
+          coverage=$(deno coverage coverage --percent | grep -oE '[0-9]+\.[0-9]+')
+          echo "Coverage: $coverage%"
+          cov_floor=$(printf "%.0f\n" "$coverage")
+          if [ "$cov_floor" -lt "$threshold" ]; then
+            echo "❌ Test coverage is below $threshold%."
+            exit 1
+          fi
+
+      - name: Upload coverage report (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage.lcov
