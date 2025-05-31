@@ -1,0 +1,29 @@
+# Deno cache (optional — usually not committed)
+**/deno_dir/
+deno.lock
+
+# VSCode settings (optional)
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and runtime files
+*.log
+
+# Testing coverage
+coverage/
+
+# Env files (if you use them)
+.env
+.env.*
+
+# Editor backups/swap files
+*~
+*.swp
+*.swo
+
+# Build artifacts (if any)
+dist/
+build/

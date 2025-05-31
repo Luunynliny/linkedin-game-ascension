@@ -1,0 +1,10 @@
+{
+  "lint": {
+    "rules": {
+      "include": ["recommended"]
+    }
+  },
+  "tasks": {
+    "lint": "deno lint"
+  }
+}
