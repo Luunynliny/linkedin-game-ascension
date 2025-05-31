@@ -27,3 +27,5 @@ coverage/
 # Build artifacts (if any)
 dist/
 build/
+
+*.lcov

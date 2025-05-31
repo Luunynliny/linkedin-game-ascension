@@ -1,1 +1,3 @@
-console.log("Hello from Deno!");
+export function add(a, b) {
+  return a + b;
+}
