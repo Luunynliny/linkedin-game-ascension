@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: stable
+          deno-version: v2.x
 
       - name: Check formatting
         run: deno fmt --check
@@ -26,8 +26,8 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          deno test --coverage=coverage
-          deno coverage coverage --lcov > coverage.lcov
+          deno test --allow-all --coverage=cov/
+          deno coverage --lcov cov/ > cov.lcov
 
       - name: Check coverage threshold
         run: |
