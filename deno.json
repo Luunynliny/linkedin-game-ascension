@@ -15,5 +15,9 @@
     "coverage:check": "deno run -A check_coverage.ts",
 
     "verify": "deno task quality && deno task test && deno task coverage:check"
+  },
+  "imports": {
+    "axios": "npm:axios@^1.9.0",
+    "cheerio": "npm:cheerio@^1.0.0"
   }
 }
