@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "lib": ["deno.ns", "dom"]
+  },
   "lint": {
     "rules": {
       "include": ["recommended"]
@@ -15,5 +18,8 @@
     "coverage:check": "deno run -A check_coverage.ts",
 
     "verify": "deno task quality && deno task test && deno task coverage:check"
+  },
+  "imports": {
+    "playwright": "npm:playwright@^1.54.1"
   }
 }
