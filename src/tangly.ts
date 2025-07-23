@@ -20,7 +20,7 @@ export class Tangly {
       Array.from({ length: 5 }, () => Array(6).fill(" " as Constraint));
   }
 
-  public loadCellsFEN(fen: string) {
+  public loadPiecesFEN(fen: string): void {
     const grid: string[][] = Array.from(
       { length: 6 },
       () => Array(6).fill(" "),
@@ -44,7 +44,7 @@ export class Tangly {
         continue;
       }
 
-      // Place cells
+      // Place pieces
       switch (c) {
         case "s":
           grid[i][j] = "S";
@@ -64,11 +64,71 @@ export class Tangly {
     this.cells = grid as Cell[][];
   }
 
-  // public loadHConstraintsFEN(fen: string): void {
-  // }
+  public loadHConstraintsFEN(fen: string): void {
+    const grid: string[][] = Array.from(
+      { length: 6 },
+      () => Array(5).fill(" "),
+    );
 
-  // public loadVConstraintsFEN(fen: string): void {
-  // }
+    let i = 0, j = 0;
+
+    for (let n = 0; n < fen.length; n++) {
+      const c = fen[n];
+
+      // Skip empty cells
+      if (c in ["1", "2", "3", "4", "5", "6"]) {
+        j += parseInt(c);
+        continue;
+      }
+
+      // Go the next row
+      if (c == "/") {
+        i++;
+        j = 0;
+        continue;
+      }
+
+      // Place constraints
+      grid[i][j] = c;
+
+      j++;
+    }
+
+    this.hConstraints = grid as Constraint[][];
+  }
+
+  public loadVConstraintsFEN(fen: string): void {
+    const grid: string[][] = Array.from(
+      { length: 6 },
+      () => Array(5).fill(" "),
+    );
+
+    let i = 0, j = 0;
+
+    for (let n = 0; n < fen.length; n++) {
+      const c = fen[n];
+
+      // Skip empty cells
+      if (c in ["1", "2", "3", "4", "5", "6"]) {
+        j += parseInt(c);
+        continue;
+      }
+
+      // Go the next row
+      if (c == "/") {
+        i++;
+        j = 0;
+        continue;
+      }
+
+      // Place constraints
+      grid[i][j] = c;
+
+      j++;
+    }
+
+    this.hConstraints = grid as Constraint[][];
+  }
 
   public toString(): string {
     const moonSymbol = " ☽ ";
