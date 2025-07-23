@@ -75,11 +75,11 @@ Deno.test("toString", () => {
   ] as Constraint[][];
 
   const vConstraints = [
-    [" ", " ", " ", " ", " ", ""],
-    [" ", " ", " ", " ", " ", ""],
-    [" ", " ", " ", " ", " ", ""],
-    [" ", " ", " ", " ", " ", ""],
-    [" ", " ", " ", " ", " ", ""],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
   ] as Constraint[][];
 
   const tangly = new Tangly(cells, hConstraints, vConstraints);
@@ -103,17 +103,34 @@ Deno.test("toString", () => {
 Deno.test("loadCellsFEN", () => {
   const piecesFEN = "6/ss2s1/s2m1m/2m3/m5/3ss1";
 
-  const tangly = new Tangly()
-  tangly.loadCellsFEN(piecesFEN)
+  const tangly = new Tangly();
+  tangly.loadCellsFEN(piecesFEN);
 
   assertEquals(
     tangly.cells,
     [
+      [" ", " ", " ", " ", " ", " "],
+      ["S", "S", " ", " ", "S", " "],
+      ["S", " ", " ", "M", " ", "M"],
+      [" ", " ", "M", " ", " ", " "],
+      ["M", " ", " ", " ", " ", " "],
+      [" ", " ", " ", "S", "S", " "],
+    ] as Cell[][],
+  );
+
+  assertEquals(tangly.hConstraints, [
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " "],
+  ] as Constraint[][]);
+  assertEquals(tangly.vConstraints, [
     [" ", " ", " ", " ", " ", " "],
-    ["S", "S", " ", " ", "S", " "],
-    ["S", " ", " ", "M", " ", "M"],
-    [" ", " ", "M", " ", " ", " "],
-    ["M", " ", " ", " ", " ", " "],
-    [" ", " ", " ", "S", "S", " "],
-  ] as Cell[][]);
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " "],
+  ] as Constraint[][]);
 });

@@ -12,9 +12,12 @@ export class Tangly {
     hConstraints?: Constraint[][],
     vConstraints?: Constraint[][],
   ) {
-    this.cells = cells ?? Array.from({ length: 6 }, () => Array(6).fill(" " as Cell));
-    this.hConstraints = hConstraints ?? Array.from({ length: 6 }, () => Array(5).fill(" " as Constraint));
-    this.vConstraints = vConstraints ?? Array.from({ length: 5 }, () => Array(6).fill(" " as Constraint));
+    this.cells = cells ??
+      Array.from({ length: 6 }, () => Array(6).fill(" " as Cell));
+    this.hConstraints = hConstraints ??
+      Array.from({ length: 6 }, () => Array(5).fill(" " as Constraint));
+    this.vConstraints = vConstraints ??
+      Array.from({ length: 5 }, () => Array(6).fill(" " as Constraint));
   }
 
   public loadCellsFEN(fen: string) {
@@ -58,8 +61,7 @@ export class Tangly {
       j++;
     }
 
-    console.log(grid);
-    this.cells = grid as Cell[][]
+    this.cells = grid as Cell[][];
   }
 
   // public loadHConstraintsFEN(fen: string): void {
