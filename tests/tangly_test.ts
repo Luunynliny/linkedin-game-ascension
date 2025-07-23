@@ -183,7 +183,7 @@ Deno.test("loadHConstraintsFEN", () => {
 });
 
 Deno.test("loadVConstraintsFEN", () => {
-  const vConstraintsFEN = "5/5/5/5/5/5/5";
+  const vConstraintsFEN = "3xx1/6/6/4x1/6";
 
   const tangly = new Tangly();
   tangly.loadVConstraintsFEN(vConstraintsFEN);
@@ -213,10 +213,10 @@ Deno.test("loadVConstraintsFEN", () => {
   assertEquals(
     tangly.vConstraints,
     [
+      [" ", " ", " ", "x", "x", " "],
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " ", " "],
+      [" ", " ", " ", " ", "x", " "],
       [" ", " ", " ", " ", " ", " "],
     ] as Constraint[][],
   );

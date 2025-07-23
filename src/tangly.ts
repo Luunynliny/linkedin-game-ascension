@@ -32,7 +32,7 @@ export class Tangly {
       const c = fen[n];
 
       // Skip empty cells
-      if (c in ["1", "2", "3", "4", "5", "6"]) {
+      if (["1", "2", "3", "4", "5", "6"].includes(c)) {
         j += parseInt(c);
         continue;
       }
@@ -76,7 +76,7 @@ export class Tangly {
       const c = fen[n];
 
       // Skip empty cells
-      if (c in ["1", "2", "3", "4", "5", "6"]) {
+      if (["1", "2", "3", "4", "5", "6"].includes(c)) {
         j += parseInt(c);
         continue;
       }
@@ -99,8 +99,8 @@ export class Tangly {
 
   public loadVConstraintsFEN(fen: string): void {
     const grid: string[][] = Array.from(
-      { length: 6 },
-      () => Array(5).fill(" "),
+      { length: 5 },
+      () => Array(6).fill(" "),
     );
 
     let i = 0, j = 0;
@@ -109,7 +109,7 @@ export class Tangly {
       const c = fen[n];
 
       // Skip empty cells
-      if (c in ["1", "2", "3", "4", "5", "6"]) {
+      if (["1", "2", "3", "4", "5", "6"].includes(c)) {
         j += parseInt(c);
         continue;
       }
@@ -127,7 +127,7 @@ export class Tangly {
       j++;
     }
 
-    this.hConstraints = grid as Constraint[][];
+    this.vConstraints = grid as Constraint[][];
   }
 
   public toString(): string {
