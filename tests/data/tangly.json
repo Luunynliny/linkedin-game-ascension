@@ -1,0 +1,8 @@
+[
+  {
+    "tanglyPuzzleId": 1,
+    "piecesFEN": "6/ss2s1/s2m1m/2m3/m5/3ss1",
+    "hConstraintsFEN": "1x3/1x3/5/4x/3=1/5",
+    "vConstraintsFEN": "5/5/5/5/5/5/5"
+  }
+]
