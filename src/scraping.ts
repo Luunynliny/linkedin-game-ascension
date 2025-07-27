@@ -43,3 +43,38 @@ export function getPieces(gridHtml: string): string {
 
   return pieces;
 }
+
+export function parsePiecesFEN(pieces: string): string {
+  const rows = pieces.match(/.{1,6}/g) || [];
+  let fen = "";
+
+  rows.forEach((row) => {
+    let emptyCounter = 0;
+
+    for (let i = 0; i < 6; i++) {
+      const piece = row[i];
+
+      if (piece === "S" || piece === "M") {
+        if (emptyCounter > 0) {
+          fen += emptyCounter;
+          emptyCounter = 0;
+        }
+
+        fen += piece.toLowerCase();
+        continue;
+      }
+
+      if (piece === "_") {
+        emptyCounter++;
+
+        if (i === 5) {
+          fen += emptyCounter;
+        }
+      }
+    }
+
+    fen += "/";
+  });
+
+  return fen.slice(0, -1);
+}

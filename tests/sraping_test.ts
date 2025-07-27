@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { fetchGrid, getPieces } from "../src/scraping.ts";
+import { fetchGrid, getPieces, parsePiecesFEN } from "../src/scraping.ts";
 import { minify } from "npm:html-minifier-terser";
 
 async function normalizeHtml(html: string): Promise<string> {
@@ -22,7 +22,21 @@ Deno.test("getPieces", async () => {
   const url = new URL("./fixtures/puzzle_1_grid.html", import.meta.url);
   const gridHtml = await Deno.readTextFile(url);
 
-  const pieces = getPieces(gridHtml)
+  const pieces = getPieces(gridHtml);
 
   assertEquals(pieces, "______SS__S_S__M_M__M___M________SS_");
+});
+
+Deno.test("parsePiecesFEN -- puzzle #1", () => {
+  const pieces = "______SS__S_S__M_M__M___M________SS_";
+  const fen = parsePiecesFEN(pieces);
+
+  assertEquals(fen, "6/ss2s1/s2m1m/2m3/m5/3ss1");
+});
+
+Deno.test("parsePiecesFEN -- puzzle #2", () => {
+  const pieces = "____S_M______S________SM_M___M__S_S_";
+  const fen = parsePiecesFEN(pieces);
+
+  assertEquals(fen, "4s1/m5/1s4/4sm/1m3m/2s1s1");
 });
