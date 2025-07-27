@@ -14,13 +14,14 @@
 
     "quality": "deno task fmt && deno task lint && deno task fmt:check",
 
-    "test": "deno test --coverage=coverage",
+    "test": "deno test --coverage=coverage --allow-env --allow-read --allow-sys --allow-write --allow-run",
     "coverage:check": "deno run -A check_coverage.ts",
 
     "verify": "deno task quality && deno task test && deno task coverage:check"
   },
   "imports": {
     "cheerio": "npm:cheerio@^1.1.2",
+    "html-minifier-terser": "npm:html-minifier-terser@^7.2.0",
     "playwright": "npm:playwright@^1.54.1"
   }
 }

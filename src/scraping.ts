@@ -1,21 +1,21 @@
 import { firefox } from "playwright";
 import * as cheerio from "cheerio";
 
-async function fetchGrid(puzzleId: number): Promise<string> {
+export async function fetchGrid(puzzleId: number): Promise<string> {
   const browser = await firefox.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto("https://www.tangly.org/?id=" + puzzleId);
   await page.waitForSelector(".grid.grid-cols-6");
 
-  const gridHTML = await page.$eval(".grid.grid-cols-6", (el) => el.outerHTML);
+  const gridHtml = await page.$eval(".grid.grid-cols-6", (el) => el.outerHTML);
 
   await browser.close();
-  return gridHTML;
+  return gridHtml;
 }
 
-function getPieces(gridHTML: string): string {
-  const $ = cheerio.load(gridHTML);
+export function getPieces(gridHtml: string): string {
+  const $ = cheerio.load(gridHtml);
   let pieces = "";
 
   $("button").each((_, btn) => {
@@ -43,6 +43,3 @@ function getPieces(gridHTML: string): string {
 
   return pieces;
 }
-
-const grid = await fetchGrid(1);
-const _pieces = getPieces(grid);

@@ -144,7 +144,7 @@ export class Tangly {
     let _string = "";
 
     for (let i = 0; i < 6; i++) {
-      // pieces and horizontal constraints
+      // Pieces and horizontal constraints
       for (let j = 0; j < 6; j++) {
         const Piece = this.pieces[i][j];
 
