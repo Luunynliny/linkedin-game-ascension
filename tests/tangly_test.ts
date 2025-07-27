@@ -1,15 +1,15 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { Cell, Constraint, Tangly } from "../src/tangly.ts";
+import { Constraint, Piece, Tangly } from "../src/tangly.ts";
 
 Deno.test("instanciation", () => {
-  const cells = [
+  const pieces = [
     [" ", " ", " ", " ", " ", " "],
     ["S", "S", " ", " ", "S", " "],
     ["S", " ", " ", "M", " ", "M"],
     [" ", " ", "M", " ", " ", " "],
     ["M", " ", " ", " ", " ", " "],
     [" ", " ", " ", "S", "S", " "],
-  ] as Cell[][];
+  ] as Piece[][];
 
   const hConstraints = [
     [" ", "x", " ", " ", " "],
@@ -28,9 +28,9 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const tangly = new Tangly(cells, hConstraints, vConstraints);
+  const tangly = new Tangly(pieces, hConstraints, vConstraints);
 
-  assertEquals(tangly.cells, [
+  assertEquals(tangly.pieces, [
     [" ", " ", " ", " ", " ", " "],
     ["S", "S", " ", " ", "S", " "],
     ["S", " ", " ", "M", " ", "M"],
@@ -58,14 +58,14 @@ Deno.test("instanciation", () => {
 });
 
 Deno.test("toString", () => {
-  const cells = [
+  const pieces = [
     [" ", " ", " ", " ", " ", " "],
     ["S", "S", " ", " ", "S", " "],
     ["S", " ", " ", "M", " ", "M"],
     [" ", " ", "M", " ", " ", " "],
     ["M", " ", " ", " ", " ", " "],
     [" ", " ", " ", "S", "S", " "],
-  ] as Cell[][];
+  ] as Piece[][];
 
   const hConstraints = [
     [" ", "x", " ", " ", " "],
@@ -84,7 +84,7 @@ Deno.test("toString", () => {
     [" ", " ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const tangly = new Tangly(cells, hConstraints, vConstraints);
+  const tangly = new Tangly(pieces, hConstraints, vConstraints);
 
   assertEquals(
     tangly.toString(),
@@ -109,7 +109,7 @@ Deno.test("loadPiecesFEN", () => {
   tangly.loadPiecesFEN(piecesFEN);
 
   assertEquals(
-    tangly.cells,
+    tangly.pieces,
     [
       [" ", " ", " ", " ", " ", " "],
       ["S", "S", " ", " ", "S", " "],
@@ -117,7 +117,7 @@ Deno.test("loadPiecesFEN", () => {
       [" ", " ", "M", " ", " ", " "],
       ["M", " ", " ", " ", " ", " "],
       [" ", " ", " ", "S", "S", " "],
-    ] as Cell[][],
+    ] as Piece[][],
   );
   assertEquals(
     tangly.hConstraints,
@@ -149,7 +149,7 @@ Deno.test("loadHConstraintsFEN", () => {
   tangly.loadHConstraintsFEN(hConstraintsFEN);
 
   assertEquals(
-    tangly.cells,
+    tangly.pieces,
     [
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
@@ -157,7 +157,7 @@ Deno.test("loadHConstraintsFEN", () => {
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
-    ] as Cell[][],
+    ] as Piece[][],
   );
   assertEquals(
     tangly.hConstraints,
@@ -189,7 +189,7 @@ Deno.test("loadVConstraintsFEN", () => {
   tangly.loadVConstraintsFEN(vConstraintsFEN);
 
   assertEquals(
-    tangly.cells,
+    tangly.pieces,
     [
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
@@ -197,7 +197,7 @@ Deno.test("loadVConstraintsFEN", () => {
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
-    ] as Cell[][],
+    ] as Piece[][],
   );
   assertEquals(
     tangly.hConstraints,

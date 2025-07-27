@@ -20,6 +20,7 @@
     "verify": "deno task quality && deno task test && deno task coverage:check"
   },
   "imports": {
+    "cheerio": "npm:cheerio@^1.1.2",
     "playwright": "npm:playwright@^1.54.1"
   }
 }
