@@ -3,10 +3,12 @@ import {
   fetchGrid,
   getColConstraints,
   getPieces,
+  getPuzzleConfig,
   getRowConstraints,
   parseColConstraintsFEN,
   parsePiecesFEN,
   parseRowConstraintsFEN,
+  PuzzleConfig,
 } from "../src/scraping.ts";
 import { minify } from "npm:html-minifier-terser";
 
@@ -111,4 +113,26 @@ Deno.test("parseRowConstraintsFEN -- puzzle #2", () => {
   const fen = parseRowConstraintsFEN(pieces);
 
   assertEquals(fen, "5/5/5/5/5/5");
+});
+
+Deno.test("getPuzzleConfig -- puzzle #1", async () => {
+  const config = await getPuzzleConfig(1);
+
+  assertEquals(config, {
+    "id": 1,
+    "piecesFEN": "6/ss2s1/s2m1m/2m3/m5/3ss1",
+    "rowConstraintsFEN": "1x3/1x3/5/4x/3=1/5",
+    "colConstraintsFEN": "6/6/6/6/6",
+  } as PuzzleConfig);
+});
+
+Deno.test("getPuzzleConfig -- puzzle #2", async () => {
+  const config = await getPuzzleConfig(2);
+
+  assertEquals(config, {
+    "id": 2,
+    "piecesFEN": "4s1/m5/1s4/4sm/1m3m/2s1s1",
+    "rowConstraintsFEN": "5/5/5/5/5/5",
+    "colConstraintsFEN": "3xx1/6/6/4x1/6",
+  } as PuzzleConfig);
 });

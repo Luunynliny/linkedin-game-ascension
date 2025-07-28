@@ -1,6 +1,13 @@
 import { firefox } from "playwright";
 import * as cheerio from "cheerio";
 
+export type PuzzleConfig = {
+  "id": number;
+  "piecesFEN": string;
+  "rowConstraintsFEN": string;
+  "colConstraintsFEN": string;
+};
+
 export async function fetchGrid(puzzleId: number): Promise<string> {
   const browser = await firefox.launch({ headless: true });
   const page = await browser.newPage();
@@ -226,4 +233,19 @@ export function parseRowConstraintsFEN(constraints: string): string {
   });
 
   return fen.slice(0, -1);
+}
+
+export async function getPuzzleConfig(puzzleId: number): Promise<PuzzleConfig> {
+  const gridHtml = await fetchGrid(puzzleId);
+
+  const pieces = getPieces(gridHtml);
+  const rowConstraints = getRowConstraints(gridHtml);
+  const colConstraints = getColConstraints(gridHtml);
+
+  return {
+    "id": puzzleId,
+    "piecesFEN": parsePiecesFEN(pieces),
+    "rowConstraintsFEN": parseRowConstraintsFEN(rowConstraints),
+    "colConstraintsFEN": parseColConstraintsFEN(colConstraints),
+  };
 }
