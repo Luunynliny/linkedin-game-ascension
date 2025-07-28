@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["deno.ns", "dom"]
   },
+  "nodeModulesDir": "auto",
   "tasks": {
     "fmt": "deno fmt",
     "lint": "deno lint",
