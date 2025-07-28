@@ -1,0 +1,15 @@
+{
+  "tanglyPuzzlesURL": "https://www.tangly.org",
+  "puzzles": {
+    "1": {
+      "piecesFEN": "6/ss2s1/s2m1m/2m3/m5/3ss1",
+      "rowConstraintsFEN": "1x3/1x3/5/4x/3=1/5",
+      "colConstraintsFEN": "6/6/6/6/6"
+    },
+    "2": {
+      "piecesFEN": "4s1/m5/1s4/4sm/1m3m/2s1s1",
+      "rowConstraintsFEN": "5/5/5/5/5/5",
+      "colConstraintsFEN": "3xx1/6/6/4x1/6"
+    }
+  }
+}
