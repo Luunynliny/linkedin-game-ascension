@@ -13,7 +13,7 @@ import {
   parsePiecesFEN,
   parseRowConstraintsFEN,
   PuzzleConfig,
-} from "../src/scraping.ts";
+} from "../../src/tangly/scraping.ts";
 import { minify } from "npm:html-minifier-terser";
 
 async function normalizeHtml(html: string): Promise<string> {

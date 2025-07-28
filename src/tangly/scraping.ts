@@ -1,7 +1,7 @@
 import { firefox } from "playwright";
 import * as cheerio from "cheerio";
 
-const tanglyUrl = "https://www.tangly.org";
+export const tanglyUrl = "https://www.tangly.org";
 
 export type PuzzleConfig = {
   "id": number;
