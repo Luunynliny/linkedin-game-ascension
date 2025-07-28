@@ -157,3 +157,73 @@ export function getRowConstraints(gridHtml: string): string {
 
   return constraints;
 }
+
+export function parseColConstraintsFEN(constraints: string): string {
+  const rows = constraints.match(/.{1,6}/g) || [];
+  let fen = "";
+
+  rows.forEach((row) => {
+    let emptyCounter = 0;
+
+    for (let i = 0; i < 6; i++) {
+      const constraint = row[i];
+
+      if (constraint === "X" || constraint === "=") {
+        if (emptyCounter > 0) {
+          fen += emptyCounter;
+          emptyCounter = 0;
+        }
+
+        fen += constraint.toLowerCase();
+        continue;
+      }
+
+      if (constraint === "_") {
+        emptyCounter++;
+
+        if (i === 5) {
+          fen += emptyCounter;
+        }
+      }
+    }
+
+    fen += "/";
+  });
+
+  return fen.slice(0, -1);
+}
+
+export function parseRowConstraintsFEN(constraints: string): string {
+  const rows = constraints.match(/.{1,5}/g) || [];
+  let fen = "";
+
+  rows.forEach((row) => {
+    let emptyCounter = 0;
+
+    for (let i = 0; i < 5; i++) {
+      const constraint = row[i];
+
+      if (constraint === "X" || constraint === "=") {
+        if (emptyCounter > 0) {
+          fen += emptyCounter;
+          emptyCounter = 0;
+        }
+
+        fen += constraint.toLowerCase();
+        continue;
+      }
+
+      if (constraint === "_") {
+        emptyCounter++;
+
+        if (i === 4) {
+          fen += emptyCounter;
+        }
+      }
+    }
+
+    fen += "/";
+  });
+
+  return fen.slice(0, -1);
+}

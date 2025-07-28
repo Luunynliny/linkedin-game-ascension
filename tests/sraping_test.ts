@@ -4,7 +4,9 @@ import {
   getColConstraints,
   getPieces,
   getRowConstraints,
+  parseColConstraintsFEN,
   parsePiecesFEN,
+  parseRowConstraintsFEN,
 } from "../src/scraping.ts";
 import { minify } from "npm:html-minifier-terser";
 
@@ -81,4 +83,32 @@ Deno.test("getRowConstraints -- puzzle #2", async () => {
   const constraints = getRowConstraints(gridHtml);
 
   assertEquals(constraints, "______________________________");
+});
+
+Deno.test("parseColConstraintsFEN -- puzzle #1", () => {
+  const pieces = "______________________________";
+  const fen = parseColConstraintsFEN(pieces);
+
+  assertEquals(fen, "6/6/6/6/6");
+});
+
+Deno.test("parseColConstraintsFEN -- puzzle #2", () => {
+  const pieces = "___XX_________________X_______";
+  const fen = parseColConstraintsFEN(pieces);
+
+  assertEquals(fen, "3xx1/6/6/4x1/6");
+});
+
+Deno.test("parseRowConstraintsFEN -- puzzle #1", () => {
+  const pieces = "_X____X____________X___=______";
+  const fen = parseRowConstraintsFEN(pieces);
+
+  assertEquals(fen, "1x3/1x3/5/4x/3=1/5");
+});
+
+Deno.test("parseRowConstraintsFEN -- puzzle #2", () => {
+  const pieces = "______________________________";
+  const fen = parseRowConstraintsFEN(pieces);
+
+  assertEquals(fen, "5/5/5/5/5/5");
 });
