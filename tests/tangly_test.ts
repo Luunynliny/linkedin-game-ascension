@@ -11,7 +11,7 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", "S", "S", " "],
   ] as Piece[][];
 
-  const hConstraints = [
+  const rowConstraints = [
     [" ", "x", " ", " ", " "],
     [" ", "x", " ", " ", " "],
     [" ", " ", " ", " ", " "],
@@ -20,7 +20,7 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const vConstraints = [
+  const colConstraints = [
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
@@ -28,7 +28,7 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const tangly = new Tangly(pieces, hConstraints, vConstraints);
+  const tangly = new Tangly(pieces, rowConstraints, colConstraints);
 
   assertEquals(tangly.pieces, [
     [" ", " ", " ", " ", " ", " "],
@@ -39,7 +39,7 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", "S", "S", " "],
   ]);
 
-  assertEquals(tangly.hConstraints, [
+  assertEquals(tangly.rowConstraints, [
     [" ", "x", " ", " ", " "],
     [" ", "x", " ", " ", " "],
     [" ", " ", " ", " ", " "],
@@ -48,7 +48,7 @@ Deno.test("instanciation", () => {
     [" ", " ", " ", " ", " "],
   ]);
 
-  assertEquals(tangly.vConstraints, [
+  assertEquals(tangly.colConstraints, [
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
@@ -67,7 +67,7 @@ Deno.test("toString", () => {
     [" ", " ", " ", "S", "S", " "],
   ] as Piece[][];
 
-  const hConstraints = [
+  const rowConstraints = [
     [" ", "x", " ", " ", " "],
     [" ", "x", " ", " ", " "],
     [" ", " ", " ", " ", "x"],
@@ -76,7 +76,7 @@ Deno.test("toString", () => {
     [" ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const vConstraints = [
+  const colConstraints = [
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " "],
@@ -84,7 +84,7 @@ Deno.test("toString", () => {
     [" ", " ", " ", " ", " ", " "],
   ] as Constraint[][];
 
-  const tangly = new Tangly(pieces, hConstraints, vConstraints);
+  const tangly = new Tangly(pieces, rowConstraints, colConstraints);
 
   assertEquals(
     tangly.toString(),
@@ -120,7 +120,7 @@ Deno.test("loadPiecesFEN", () => {
     ] as Piece[][],
   );
   assertEquals(
-    tangly.hConstraints,
+    tangly.rowConstraints,
     [
       [" ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " "],
@@ -131,7 +131,7 @@ Deno.test("loadPiecesFEN", () => {
     ] as Constraint[][],
   );
   assertEquals(
-    tangly.vConstraints,
+    tangly.colConstraints,
     [
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
@@ -142,11 +142,11 @@ Deno.test("loadPiecesFEN", () => {
   );
 });
 
-Deno.test("loadHConstraintsFEN", () => {
-  const hConstraintsFEN = "1x3/1x3/5/4x/3=1/5";
+Deno.test("loadRowConstraintsFEN", () => {
+  const rowConstraintsFEN = "1x3/1x3/5/4x/3=1/5";
 
   const tangly = new Tangly();
-  tangly.loadHConstraintsFEN(hConstraintsFEN);
+  tangly.loadRowConstraintsFEN(rowConstraintsFEN);
 
   assertEquals(
     tangly.pieces,
@@ -160,7 +160,7 @@ Deno.test("loadHConstraintsFEN", () => {
     ] as Piece[][],
   );
   assertEquals(
-    tangly.hConstraints,
+    tangly.rowConstraints,
     [
       [" ", "x", " ", " ", " "],
       [" ", "x", " ", " ", " "],
@@ -171,7 +171,7 @@ Deno.test("loadHConstraintsFEN", () => {
     ] as Constraint[][],
   );
   assertEquals(
-    tangly.vConstraints,
+    tangly.colConstraints,
     [
       [" ", " ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " ", " "],
@@ -182,11 +182,11 @@ Deno.test("loadHConstraintsFEN", () => {
   );
 });
 
-Deno.test("loadVConstraintsFEN", () => {
-  const vConstraintsFEN = "3xx1/6/6/4x1/6";
+Deno.test("loadColConstraintsFEN", () => {
+  const colConstraintsFEN = "3xx1/6/6/4x1/6";
 
   const tangly = new Tangly();
-  tangly.loadVConstraintsFEN(vConstraintsFEN);
+  tangly.loadColConstraintsFEN(colConstraintsFEN);
 
   assertEquals(
     tangly.pieces,
@@ -200,7 +200,7 @@ Deno.test("loadVConstraintsFEN", () => {
     ] as Piece[][],
   );
   assertEquals(
-    tangly.hConstraints,
+    tangly.rowConstraints,
     [
       [" ", " ", " ", " ", " "],
       [" ", " ", " ", " ", " "],
@@ -211,7 +211,7 @@ Deno.test("loadVConstraintsFEN", () => {
     ] as Constraint[][],
   );
   assertEquals(
-    tangly.vConstraints,
+    tangly.colConstraints,
     [
       [" ", " ", " ", "x", "x", " "],
       [" ", " ", " ", " ", " ", " "],

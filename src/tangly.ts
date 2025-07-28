@@ -4,19 +4,19 @@ export type Constraint = " " | "=" | "x";
 
 export class Tangly {
   pieces: Piece[][]; // 6x6
-  hConstraints: Constraint[][]; // 6x5
-  vConstraints: Constraint[][]; // 5x6
+  rowConstraints: Constraint[][]; // 6x5
+  colConstraints: Constraint[][]; // 5x6
 
   constructor(
     pieces?: Piece[][],
-    hConstraints?: Constraint[][],
-    vConstraints?: Constraint[][],
+    rowConstraints?: Constraint[][],
+    colConstraints?: Constraint[][],
   ) {
     this.pieces = pieces ??
       Array.from({ length: 6 }, () => Array(6).fill(" " as Piece));
-    this.hConstraints = hConstraints ??
+    this.rowConstraints = rowConstraints ??
       Array.from({ length: 6 }, () => Array(5).fill(" " as Constraint));
-    this.vConstraints = vConstraints ??
+    this.colConstraints = colConstraints ??
       Array.from({ length: 5 }, () => Array(6).fill(" " as Constraint));
   }
 
@@ -64,7 +64,7 @@ export class Tangly {
     this.pieces = grid as Piece[][];
   }
 
-  public loadHConstraintsFEN(fen: string): void {
+  public loadRowConstraintsFEN(fen: string): void {
     const grid: string[][] = Array.from(
       { length: 6 },
       () => Array(5).fill(" "),
@@ -94,10 +94,10 @@ export class Tangly {
       j++;
     }
 
-    this.hConstraints = grid as Constraint[][];
+    this.rowConstraints = grid as Constraint[][];
   }
 
-  public loadVConstraintsFEN(fen: string): void {
+  public loadColConstraintsFEN(fen: string): void {
     const grid: string[][] = Array.from(
       { length: 5 },
       () => Array(6).fill(" "),
@@ -127,7 +127,7 @@ export class Tangly {
       j++;
     }
 
-    this.vConstraints = grid as Constraint[][];
+    this.colConstraints = grid as Constraint[][];
   }
 
   public toString(): string {
@@ -163,7 +163,7 @@ export class Tangly {
         }
 
         if (0 < j && j < 5) {
-          const hConstraint = this.hConstraints[i][j];
+          const hConstraint = this.rowConstraints[i][j];
 
           switch (hConstraint) {
             case "x":
@@ -188,7 +188,7 @@ export class Tangly {
       // Vertical constraints
       if (i < 5) {
         for (let j = 0; j < 6; j++) {
-          const vConstraint = this.vConstraints[i][j];
+          const vConstraint = this.colConstraints[i][j];
 
           if (0 < j && j < 5) {
             switch (vConstraint) {

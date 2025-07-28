@@ -78,3 +78,43 @@ export function parsePiecesFEN(pieces: string): string {
 
   return fen.slice(0, -1);
 }
+
+export function getColConstraints(gridHtml: string): string {
+  const $ = cheerio.load(gridHtml);
+  const cells = $("div.grid > div.relative");
+
+  let constraints = "";
+
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 6; col++) {
+      const index = row * 6 + col;
+      const cell = $(cells[index]);
+
+      const mark = cell
+        .find("div.absolute")
+        .filter((_, el) => {
+          const className = $(el).attr("class") ?? "";
+          return className.includes("bottom-0") &&
+            className.includes("left-1/2");
+        })
+        .text()
+        .trim();
+
+      switch (mark) {
+        case "×":
+          constraints += "X";
+          break;
+
+        case "=":
+          constraints += "=";
+          break;
+
+        default:
+          constraints += "_";
+          break;
+      }
+    }
+  }
+
+  return constraints;
+}
