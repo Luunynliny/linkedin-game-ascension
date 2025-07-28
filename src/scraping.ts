@@ -118,3 +118,42 @@ export function getColConstraints(gridHtml: string): string {
 
   return constraints;
 }
+
+export function getRowConstraints(gridHtml: string): string {
+  const $ = cheerio.load(gridHtml);
+  const cells = $("div.grid > div.relative");
+
+  let constraints = "";
+
+  for (let row = 0; row < 6; row++) {
+    for (let col = 0; col < 5; col++) {
+      const index = row * 6 + col;
+      const cell = $(cells[index]);
+
+      const mark = cell
+        .find("div.absolute")
+        .filter((_, el) => {
+          const className = $(el).attr("class") ?? "";
+          return className.includes("top-1/2") && className.includes("right-0");
+        })
+        .text()
+        .trim();
+
+      switch (mark) {
+        case "×":
+          constraints += "X";
+          break;
+
+        case "=":
+          constraints += "=";
+          break;
+
+        default:
+          constraints += "_";
+          break;
+      }
+    }
+  }
+
+  return constraints;
+}

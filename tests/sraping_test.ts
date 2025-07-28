@@ -3,6 +3,7 @@ import {
   fetchGrid,
   getColConstraints,
   getPieces,
+  getRowConstraints,
   parsePiecesFEN,
 } from "../src/scraping.ts";
 import { minify } from "npm:html-minifier-terser";
@@ -62,4 +63,22 @@ Deno.test("getColConstraints -- puzzle #2", async () => {
   const constraints = getColConstraints(gridHtml);
 
   assertEquals(constraints, "___XX_________________X_______");
+});
+
+Deno.test("getRowConstraints -- puzzle #1", async () => {
+  const url = new URL("./fixtures/puzzle_1_grid.html", import.meta.url);
+  const gridHtml = await Deno.readTextFile(url);
+
+  const constraints = getRowConstraints(gridHtml);
+
+  assertEquals(constraints, "_X____X____________X___=______");
+});
+
+Deno.test("getRowConstraints -- puzzle #2", async () => {
+  const url = new URL("./fixtures/puzzle_2_grid.html", import.meta.url);
+  const gridHtml = await Deno.readTextFile(url);
+
+  const constraints = getRowConstraints(gridHtml);
+
+  assertEquals(constraints, "______________________________");
 });
