@@ -18,6 +18,16 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright and Browsers
+        run: |
+          npm install -D playwright
+          npx playwright install firefox
+
       - name: Verify code
         run: deno task verify
 
