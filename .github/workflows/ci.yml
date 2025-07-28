@@ -28,6 +28,9 @@ jobs:
           npm install -D playwright
           npx playwright install firefox
 
+      - name: Cache Deno deps
+        run: deno cache deno.json
+
       - name: Verify code
         run: deno task verify
 
