@@ -1,6 +1,8 @@
 import { firefox } from "playwright";
 import * as cheerio from "cheerio";
 
+const tanglyUrl = "https://www.tangly.org";
+
 export type PuzzleConfig = {
   "id": number;
   "piecesFEN": string;
@@ -12,7 +14,7 @@ export async function fetchGrid(puzzleId: number): Promise<string> {
   const browser = await firefox.launch({ headless: true });
   const page = await browser.newPage();
 
-  await page.goto("https://www.tangly.org/?id=" + puzzleId);
+  await page.goto(tanglyUrl + "/?id=" + puzzleId);
   await page.waitForSelector(".grid.grid-cols-6");
 
   const gridHtml = await page.$eval(".grid.grid-cols-6", (el) => el.outerHTML);
@@ -248,4 +250,19 @@ export async function getPuzzleConfig(puzzleId: number): Promise<PuzzleConfig> {
     "rowConstraintsFEN": parseRowConstraintsFEN(rowConstraints),
     "colConstraintsFEN": parseColConstraintsFEN(colConstraints),
   };
+}
+
+export async function getPuzzleMaxId(): Promise<number> {
+  const browser = await firefox.launch({ headless: true });
+  const page = await browser.newPage();
+
+  await page.goto(tanglyUrl);
+  await page.waitForSelector(".grid.grid-cols-6");
+
+  const maxId = await page.locator("select > option:last-child").getAttribute(
+    "value",
+  );
+
+  await browser.close();
+  return Number(maxId);
 }

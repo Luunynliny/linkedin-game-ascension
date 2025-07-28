@@ -1,9 +1,13 @@
-import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
+import {
+  assertEquals,
+  assertGreater,
+} from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
   fetchGrid,
   getColConstraints,
   getPieces,
   getPuzzleConfig,
+  getPuzzleMaxId,
   getRowConstraints,
   parseColConstraintsFEN,
   parsePiecesFEN,
@@ -135,4 +139,9 @@ Deno.test("getPuzzleConfig -- puzzle #2", async () => {
     "rowConstraintsFEN": "5/5/5/5/5/5",
     "colConstraintsFEN": "3xx1/6/6/4x1/6",
   } as PuzzleConfig);
+});
+
+Deno.test("getPuzzleMaxId", async () => {
+  const id = await getPuzzleMaxId();
+  assertGreater(id, 0);
 });
